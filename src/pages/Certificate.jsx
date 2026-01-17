@@ -1,6 +1,6 @@
 export default function Certificate() {
   return (
-    <div className="bg-gradient-to-br from-indigo-600 to-purple-700 min-h-screen py-20 px-4 sm:px-8">
+    <div className="bg-gradient-to-br from-indigo-600 to-purple-700 py-20 px-4 sm:px-8">
 
       {/* Wrapper */}
       <div className="max-w-5xl mx-auto">
@@ -18,7 +18,7 @@ export default function Certificate() {
                 className="w-14 h-14"
               />
               <h1 className="text-3xl font-extrabold text-indigo-600">
-                AI LMS
+                AI LMS 🚀
               </h1>
             </div>
 
@@ -32,7 +32,7 @@ export default function Certificate() {
           <div className="text-center px-2 sm:px-10">
 
             <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-6">
-              Certificate of Completion
+              Certificate of Completion 🎓
             </h2>
 
             <p className="text-lg text-gray-600 mb-10">
@@ -48,7 +48,7 @@ export default function Certificate() {
             </p>
 
             <h4 className="text-2xl sm:text-3xl font-semibold mb-10 text-gray-800">
-              MERN Stack Mastery
+              MERN Stack Mastery 💻
             </h4>
 
             {/* Footer Info */}
@@ -75,7 +75,7 @@ export default function Certificate() {
             {/* Download Button */}
             <div className="mt-16">
               <button className="bg-indigo-600 text-white px-10 py-3 rounded-full font-bold hover:bg-indigo-700 transition">
-                Download Certificate
+                Download Certificate 📄
               </button>
             </div>
 
