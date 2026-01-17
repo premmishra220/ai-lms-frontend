@@ -1,4 +1,21 @@
 @import "tailwindcss";
+
+/* Desktop untouched */
 html, body {
-  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Only mobile overflow fix */
+@media (max-width: 768px) {
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+    background-color: black;
+  }
+
+  #root {
+    width: 100%;
+    overflow-x: hidden;
+  }
 }
