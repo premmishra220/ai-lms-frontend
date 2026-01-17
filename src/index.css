@@ -1,17 +1,30 @@
 @import "tailwindcss";
 
-/* Desktop untouched */
+/* Base reset */
 html, body {
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
-/* Only mobile overflow fix */
+/* Allow normal scroll everywhere */
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Root should not block scroll */
+#root {
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Mobile specific fix only */
 @media (max-width: 768px) {
   html, body {
     width: 100%;
     overflow-x: hidden;
-    background-color: black;
   }
 
   #root {
