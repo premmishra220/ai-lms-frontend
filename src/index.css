@@ -1,14 +1,18 @@
 @import "tailwindcss";
 
 /* Base reset */
+* {
+  box-sizing: border-box;
+}
+
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: auto;
+  min-height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: black; /* tera black theme safe */
+  background-color: black
 }
 
 /* Root container */
@@ -17,9 +21,17 @@ html, body {
   width: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Mobile scaling only (design same rahega) */
+/* Make sure main content can scroll */
+main {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Mobile scaling only  */
 @media (max-width: 768px) {
   body {
     font-size: 15px;
@@ -31,4 +43,13 @@ html, body {
     padding-left: 1rem;
     padding-right: 1rem;
   }
+}
+
+/* Hide horizontal scrollbar for navbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

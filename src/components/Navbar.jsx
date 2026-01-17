@@ -2,15 +2,27 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <nav className="bg-black border-b border-white/10 px-10 py-4 flex justify-between items-center text-gray-300">
+    <nav className="bg-black border-b border-white/10 px-4 md:px-10 py-4 text-gray-300">
 
-      {/* Logo */}
-      <Link to="/" className="text-2xl font-extrabold text-indigo-400">
-        AI LMS
-      </Link>
+      {/* Top Row */}
+      <div className="flex justify-between items-center mb-3 md:mb-0">
 
-      {/* Links */}
-      <div className="space-x-6 flex items-center text-sm font-semibold">
+        {/* Logo */}
+        <Link to="/" className="text-2xl font-extrabold text-indigo-400">
+          AI LMS
+        </Link>
+
+        {/* Login Button */}
+        <Link
+          to="/login"
+          className="bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition text-sm font-semibold"
+        >
+          Login
+        </Link>
+      </div>
+
+      {/* Links Row (Scrollable on Mobile) */}
+      <div className="flex md:flex-wrap gap-6 md:gap-6 overflow-x-auto md:overflow-visible whitespace-nowrap text-sm font-semibold scrollbar-hide">
 
         <Link to="/" className="hover:text-indigo-400 transition">
           Home
@@ -68,11 +80,7 @@ export default function Navbar() {
           Wishlist
         </Link>
 
-        <Link to="/login" className="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition">
-          Login
-        </Link>
-
       </div>
     </nav>
   );
-}   
+}
