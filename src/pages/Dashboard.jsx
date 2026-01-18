@@ -1,7 +1,39 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Dashboard() {
+  const [stats, setStats] = useState({
+    courses: 0,
+    modules: 0,
+    certificates: 0,
+  });
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const res = await axios.get("http://localhost:5000/api/dashboard/stats", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setStats(res.data);
+      } catch (err) {
+        console.log("Dashboard API Error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
   return (
     <div className="bg-gradient-to-br from-black via-gray-900 to-slate-900 min-h-screen py-20 text-white">
 
@@ -15,34 +47,49 @@ export default function Dashboard() {
         </p>
       </div>
 
+      {/* Loading */}
+      {loading && (
+        <div className="text-center text-indigo-400 text-xl font-semibold">
+          Loading dashboard data...
+        </div>
+      )}
+
       {/* Stats */}
-      <div className="max-w-7xl mx-auto px-10 grid grid-cols-1 md:grid-cols-3 gap-10 mb-16">
+      {!loading && (
+        <div className="max-w-7xl mx-auto px-10 grid grid-cols-1 md:grid-cols-3 gap-10 mb-16">
 
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          className="bg-indigo-600/20 border border-indigo-400/30 p-8 rounded-2xl shadow-xl"
-        >
-          <h3 className="text-xl font-bold mb-2">Enrolled Courses</h3>
-          <p className="text-4xl font-extrabold text-indigo-400">2</p>
-        </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="bg-indigo-600/20 border border-indigo-400/30 p-8 rounded-2xl shadow-xl"
+          >
+            <h3 className="text-xl font-bold mb-2">Enrolled Courses</h3>
+            <p className="text-4xl font-extrabold text-indigo-400">
+              {stats.courses}
+            </p>
+          </motion.div>
 
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          className="bg-green-600/20 border border-green-400/30 p-8 rounded-2xl shadow-xl"
-        >
-          <h3 className="text-xl font-bold mb-2">Completed Modules</h3>
-          <p className="text-4xl font-extrabold text-green-400">18</p>
-        </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="bg-green-600/20 border border-green-400/30 p-8 rounded-2xl shadow-xl"
+          >
+            <h3 className="text-xl font-bold mb-2">Completed Modules</h3>
+            <p className="text-4xl font-extrabold text-green-400">
+              {stats.modules}
+            </p>
+          </motion.div>
 
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          className="bg-pink-600/20 border border-pink-400/30 p-8 rounded-2xl shadow-xl"
-        >
-          <h3 className="text-xl font-bold mb-2">Certificates</h3>
-          <p className="text-4xl font-extrabold text-pink-400">1</p>
-        </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="bg-pink-600/20 border border-pink-400/30 p-8 rounded-2xl shadow-xl"
+          >
+            <h3 className="text-xl font-bold mb-2">Certificates</h3>
+            <p className="text-4xl font-extrabold text-pink-400">
+              {stats.certificates}
+            </p>
+          </motion.div>
 
-      </div>
+        </div>
+      )}
 
       {/* Quick Actions */}
       <div className="max-w-7xl mx-auto px-10 grid grid-cols-1 md:grid-cols-3 gap-10">

@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import Home from "./pages/Home";
 import Courses from "./pages/Courses";
@@ -36,32 +37,107 @@ export default function App() {
       <Navbar />
 
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<Home />} />
-
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/:id" element={<CourseDetails />} />
-
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/payment" element={<Payment />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+        {/* Protected Routes */}
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
 
-        <Route path="/notifications" element={<Notifications />} />
-        <Route path="/certificate" element={<Certificate />} />
-        <Route path="/orders" element={<OrderHistory />} />
+        <Route path="/payment" element={
+          <ProtectedRoute>
+            <Payment />
+          </ProtectedRoute>
+        } />
 
-        <Route path="/progress" element={<Progress />} />
-        <Route path="/chatbot" element={<Chatbot />} />
-        <Route path="/achievements" element={<Achievements />} />
-        <Route path="/analytics" element={<Analytics />} />
-        <Route path="/invoice" element={<Invoice />} />
-        <Route path="/upload-course" element={<UploadCourse />} />
-        <Route path="/learn" element={<Learning />} />
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        } />
 
+        <Route path="/wishlist" element={
+          <ProtectedRoute>
+            <Wishlist />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin" element={
+          <ProtectedRoute>
+            <AdminDashboard />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/notifications" element={
+          <ProtectedRoute>
+            <Notifications />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/certificate" element={
+          <ProtectedRoute>
+            <Certificate />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/orders" element={
+          <ProtectedRoute>
+            <OrderHistory />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/progress" element={
+          <ProtectedRoute>
+            <Progress />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/chatbot" element={
+          <ProtectedRoute>
+            <Chatbot />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/achievements" element={
+          <ProtectedRoute>
+            <Achievements />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/analytics" element={
+          <ProtectedRoute>
+            <Analytics />
+          </ProtectedRoute>
+
+          
+        } />
+
+        <Route path="/invoice" element={
+          <ProtectedRoute>
+            <Invoice />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/upload-course" element={
+          <ProtectedRoute>
+            <UploadCourse />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/learn" element={
+          <ProtectedRoute>
+            <Learning />
+          </ProtectedRoute>
+        } />
+
+        {/* Public Info Pages */}
         <Route path="/support" element={<Support />} />
         <Route path="/help" element={<Help />} />
         <Route path="/terms" element={<Terms />} />

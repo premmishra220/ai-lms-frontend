@@ -77,7 +77,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-5xl font-extrabold mb-16 text-indigo-400"
           >
-            What Our Students Say ❤️
+            What Our Students Say 
           </motion.h2>
 
           {/* Cards */}

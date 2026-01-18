@@ -1,15 +1,34 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 export default function Login() {
   const [role, setRole] = useState("student");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    alert(`${role.toUpperCase()} Login Successful (Demo)`);
+
+    try {
+      const res = await axios.post("http://localhost:5000/api/auth/login", {
+        email,
+        password,
+        role
+      });
+
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("role", role);
+
+      alert(`${role.toUpperCase()} Login Successful `);
+      navigate("/dashboard");
+
+    } catch (error) {
+      alert("Login failed ");
+      console.log(error);
+    }
   };
 
   return (
