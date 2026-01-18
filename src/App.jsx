@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import ProtectedRoute from "./components/ProtectedRoute";
+
 
 import Home from "./pages/Home";
 import Courses from "./pages/Courses";
@@ -116,7 +116,7 @@ export default function App() {
             <Analytics />
           </ProtectedRoute>
 
-          
+
         } />
 
         <Route path="/invoice" element={
