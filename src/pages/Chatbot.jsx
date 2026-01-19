@@ -2,13 +2,51 @@ import { useState } from "react";
 
 export default function Chatbot() {
   const [messages, setMessages] = useState([
-    { sender: "bot", text: "Hello 👋 How can I help you?" },
+    { sender: "bot", text: "Hello  How can I help you?" },
   ]);
   const [input, setInput] = useState("");
 
+  
+  const getBotReply = (msg) => {
+    const text = msg.toLowerCase();
+
+    if (text.includes("hello") || text.includes("hi"))
+      return "Hello  How can I assist you today?";
+
+    if (text.includes("course"))
+      return "We offer MERN Stack, AI, Backend, DevOps, Cloud and many more professional courses.";
+
+    if (text.includes("price") || text.includes("fees"))
+      return "Our courses start from ₹499 only with lifetime access.";
+
+    if (text.includes("certificate"))
+      return "Yes! You will receive an auto-generated certificate after completing a course.";
+
+    if (text.includes("payment"))
+      return "We support secure payments using Razorpay.";
+
+    if (text.includes("login"))
+      return "You can login using your registered email and password.";
+
+    if (text.includes("register"))
+      return "Click on Register page to create a new account.";
+
+    if (text.includes("admin"))
+      return "Admin can upload courses and manage students.";
+
+    if (text.includes("support"))
+      return "You can contact support via Contact page or email support@ailms.com";
+
+    return "Sorry 😅 I didn't understand that. Please ask about courses, price, certificate, login or payment.";
+  };
+
   const sendMessage = () => {
     if (!input.trim()) return;
-    setMessages([...messages, { sender: "user", text: input }]);
+
+    const userMsg = { sender: "user", text: input };
+    const botReply = { sender: "bot", text: getBotReply(input) };
+
+    setMessages([...messages, userMsg, botReply]);
     setInput("");
   };
 
@@ -44,6 +82,7 @@ export default function Chatbot() {
             placeholder="Type your message..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && sendMessage()}
           />
 
           <button
