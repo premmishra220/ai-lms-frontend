@@ -123,6 +123,23 @@ export default function Dashboard() {
             <p className="text-gray-400">Add new content</p>
           </motion.div>
         </Link>
+       
+       <Link to="/learn">
+  <motion.div
+    whileHover={{ scale: 1.05 }}
+    className="bg-indigo-600/20 border border-indigo-400/30 p-8 rounded-2xl shadow-xl"
+  >
+    <h3 className="text-xl font-bold mb-2">Continue Learning</h3>
+    <p className="text-gray-400">Watch course videos</p>
+  </motion.div>
+</Link>
+
+
+
+
+
+
+
 
       </div>
     </div>

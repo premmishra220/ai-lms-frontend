@@ -25,13 +25,13 @@ html, body {
   flex-direction: column;
 }
 
-/* Make sure main content can scroll */
+
 main {
   flex: 1;
   overflow-y: auto;
 }
 
-/* Mobile scaling only  */
+/* Mobile scaling  */
 @media (max-width: 768px) {
   body {
     font-size: 15px;
@@ -45,7 +45,7 @@ main {
   }
 }
 
-/* Hide horizontal scrollbar for navbar */
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
