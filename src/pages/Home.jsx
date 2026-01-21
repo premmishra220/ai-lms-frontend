@@ -187,8 +187,8 @@ export default function Home() {
   {/* Student 12 */}
   <motion.div whileHover={{ scale: 1.06, rotate: -1 }} className="bg-white/5 p-10 rounded-3xl shadow-2xl border border-white/10 hover:shadow-yellow-500/40 transition-all">
     <p className="text-lg text-gray-300">"Video courses are very helpful."</p>
-    <h4 className="mt-8 font-extrabold text-xl text-yellow-400"></h4>
-    <p className="text-sm text-gray-500 mt-1">IT Student</p>
+    <h4 className="mt-8 font-extrabold text-xl text-yellow-400">Satyam Singh</h4>
+    <p className="text-sm text-gray-500 mt-1">CS Student</p>
   </motion.div>
 
   {/* Student 13 */}

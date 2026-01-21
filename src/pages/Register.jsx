@@ -20,28 +20,40 @@ export default function Register() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-xl shadow-md w-96">
-        <h2 className="text-2xl font-bold mb-4">Register</h2>
+    <div className="bg-gradient-to-br from-black via-gray-900 to-slate-900 min-h-screen flex items-center justify-center text-white">
 
-        <input className="border p-2 w-full mb-3" placeholder="Name"
+      <div className="bg-white/5 border border-white/10 rounded-3xl shadow-2xl p-12 w-full max-w-lg">
+
+        <h2 className="text-3xl font-extrabold mb-8 text-indigo-400 text-center">
+          Create Account
+        </h2>
+
+        <input
+          className="w-full px-4 py-3 rounded-xl bg-gray-900 border border-white/10 text-white mb-4 focus:outline-none focus:border-indigo-500"
+          placeholder="Name"
           onChange={(e) => setName(e.target.value)}
         />
 
-        <input className="border p-2 w-full mb-3" placeholder="Email"
+        <input
+          className="w-full px-4 py-3 rounded-xl bg-gray-900 border border-white/10 text-white mb-4 focus:outline-none focus:border-indigo-500"
+          placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <input className="border p-2 w-full mb-3" type="password" placeholder="Password"
+        <input
+          className="w-full px-4 py-3 rounded-xl bg-gray-900 border border-white/10 text-white mb-6 focus:outline-none focus:border-indigo-500"
+          type="password"
+          placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         />
 
         <button
           onClick={handleRegister}
-          className="bg-blue-600 text-white w-full py-2 rounded"
+          className="w-full bg-indigo-600 hover:bg-indigo-700 py-3 rounded-full font-bold text-lg shadow-lg shadow-indigo-500/40 transition"
         >
           Create Account
         </button>
+
       </div>
     </div>
   );
