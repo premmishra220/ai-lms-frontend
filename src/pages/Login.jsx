@@ -9,27 +9,29 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleLogin = (e) => {
+  e.preventDefault();
 
-    try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
-        email,
-        password,
-        role
-      });
+  const savedUser = localStorage.getItem("lms_user_" + email);
 
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("role", role);
+  if (!savedUser) {
+    alert("User not found ");
+    return;
+  }
 
-      alert(`${role.toUpperCase()} Login Successful `);
-      navigate("/dashboard");
+  const user = JSON.parse(savedUser);
 
-    } catch (error) {
-      alert("Login failed ");
-      console.log(error);
-    }
-  };
+  if (user.password !== password) {
+    alert("Wrong password ");
+    return;
+  }
+
+  localStorage.setItem("currentUser", JSON.stringify(user));
+
+  alert("Login Successful ");
+  window.location.href = "/dashboard";
+};
+
 
   return (
     <div className="bg-gradient-to-br from-black via-gray-900 to-slate-900 min-h-screen flex items-center justify-center text-white">

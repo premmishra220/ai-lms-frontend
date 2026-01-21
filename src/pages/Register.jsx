@@ -1,21 +1,22 @@
 import { useState } from "react";
-import axios from "axios";
 
 export default function Register() {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: ""
-  });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleRegister = async () => {
-    try {
-      await axios.post("http://localhost:5000/api/auth/register", form);
-      alert("Registration successful ✅");
-    } catch (error) {
-      alert("Registration failed ❌");
-      console.log(error);
+  const handleRegister = () => {
+    if (!name || !email || !password) {
+      alert("Please fill all fields");
+      return;
     }
+
+    const user = { name, email, password };
+
+    localStorage.setItem("lms_user_" + email, JSON.stringify(user));
+
+    alert("Registration Successful ");
+    window.location.href = "/login";
   };
 
   return (
@@ -23,23 +24,16 @@ export default function Register() {
       <div className="bg-white p-8 rounded-xl shadow-md w-96">
         <h2 className="text-2xl font-bold mb-4">Register</h2>
 
-        <input
-          className="border p-2 w-full mb-3"
-          placeholder="Name"
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
+        <input className="border p-2 w-full mb-3" placeholder="Name"
+          onChange={(e) => setName(e.target.value)}
         />
 
-        <input
-          className="border p-2 w-full mb-3"
-          placeholder="Email"
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
+        <input className="border p-2 w-full mb-3" placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
         />
 
-        <input
-          className="border p-2 w-full mb-3"
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
+        <input className="border p-2 w-full mb-3" type="password" placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
         />
 
         <button
