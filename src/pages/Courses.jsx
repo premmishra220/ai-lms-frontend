@@ -76,15 +76,28 @@ export default function Courses() {
     <div className="bg-gradient-to-br from-black via-gray-900 to-slate-900 min-h-screen text-white">
 
       {/* Banner */}
-      <div className="bg-gradient-to-r from-indigo-700 to-purple-800 py-20">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h1 className="text-5xl font-extrabold mb-4">Explore Our Courses 📚</h1>
-          <p className="text-lg text-gray-300">
-            Learn industry-ready skills with hands-on projects
-          </p>
-        </div>
-      </div>
+<div
+  className="relative py-28 bg-cover bg-center"
+  style={{
+    backgroundImage:
+      "url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f')",
+  }}
+>
+  {/* Dark Overlay */}
+  <div className="absolute inset-0 bg-black/70"></div>
 
+  <div className="relative max-w-7xl mx-auto px-6 text-center">
+    <h1 className="text-5xl font-extrabold mb-4 text-indigo-400 drop-shadow-lg">
+      Explore Our Courses 
+    </h1>
+
+    <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+      Learn industry-ready skills with hands-on projects and become job-ready
+    </p>
+
+    
+  </div>
+</div>
       {/* Search & Filter */}
       <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row gap-6 justify-between items-center">
 
