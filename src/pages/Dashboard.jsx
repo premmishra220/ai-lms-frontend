@@ -1,9 +1,13 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+
+const COURSE_ID = "mern-stack";
+
 export default function Dashboard() {
+  const navigate = useNavigate();
 
   const [stats, setStats] = useState({
     courses: 0,
@@ -20,11 +24,14 @@ export default function Dashboard() {
       try {
         const token = localStorage.getItem("token");
 
-        const res = await axios.get("http://localhost:5000/api/dashboard/stats", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await axios.get(
+          "http://localhost:5000/api/dashboard/stats",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         setStats(res.data);
       } catch (err) {
@@ -37,6 +44,14 @@ export default function Dashboard() {
     fetchStats();
   }, []);
 
+  
+  const handleContinueLearning = () => {
+    const lastLesson =
+      localStorage.getItem(`progress_${COURSE_ID}`) || 1;
+
+    navigate(`/learning?lesson=${lastLesson}`);
+  };
+
   return (
     <div className="bg-gradient-to-br from-black via-gray-900 to-slate-900 min-h-screen py-20 text-white">
 
@@ -46,7 +61,7 @@ export default function Dashboard() {
           Dashboard
         </h1>
         <p className="text-gray-400 text-lg">
-          Welcome back, {user?.name || "Student"} 👋
+          Welcome back, {user?.name || "Student"} 
         </p>
       </div>
 
@@ -127,15 +142,19 @@ export default function Dashboard() {
           </motion.div>
         </Link>
 
-        <Link to="/learn">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="bg-indigo-600/20 border border-indigo-400/30 p-8 rounded-2xl shadow-xl"
-          >
-            <h3 className="text-xl font-bold mb-2">Continue Learning</h3>
-            <p className="text-gray-400">Watch course videos</p>
-          </motion.div>
-        </Link>
+        {/* SMART CONTINUE LEARNING */}
+        <motion.div
+          onClick={handleContinueLearning}
+          whileHover={{ scale: 1.05 }}
+          className="cursor-pointer bg-indigo-600/20 border border-indigo-400/30 p-8 rounded-2xl shadow-xl"
+        >
+          <h3 className="text-xl font-bold mb-2">
+            Continue Learning
+          </h3>
+          <p className="text-gray-400">
+            Resume where you left off
+          </p>
+        </motion.div>
 
       </div>
     </div>

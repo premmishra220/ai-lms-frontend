@@ -79,6 +79,15 @@ export default function Navbar() {
         <Link to="/wishlist" className="hover:text-indigo-400 transition">
           Wishlist
         </Link>
+        <Link to="/discussion">Discussion</Link>
+       <Link to="/quiz">Practice Quiz</Link>
+      <Link to="/english-practice" className="hover:text-indigo-400">
+  English Practice
+</Link>
+
+
+
+
 
       </div>
     </nav>

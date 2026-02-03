@@ -29,6 +29,12 @@ import Help from "./pages/Help";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import Contact from "./pages/Contact";
+import Discussion from "./pages/Discussion";
+import PracticeQuiz from "./pages/PracticeQuiz";
+import EnglishPractice from "./pages/EnglishPractice";
+
+
+
 
 export default function App() {
   return (
@@ -60,7 +66,17 @@ export default function App() {
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/invoice" element={<Invoice />} />
         <Route path="/upload-course" element={<UploadCourse />} />
-        <Route path="/learn" element={<Learning />} />
+        <Route path="/discussion" element={<Discussion />} />
+        <Route path="/quiz" element={<PracticeQuiz />} />
+       <Route path="/english-practice" element={<EnglishPractice />} />
+
+
+
+
+
+
+        {/* 🔥 FIXED ROUTE */}
+        <Route path="/learning" element={<Learning />} />
 
         <Route path="/support" element={<Support />} />
         <Route path="/help" element={<Help />} />
