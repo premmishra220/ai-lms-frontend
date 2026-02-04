@@ -114,60 +114,70 @@ const questions = [
 export default function PracticeQuiz() {
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState("");
-  const [answers, setAnswers] = useState({}); // 👈 answers store
-  const [score, setScore] = useState(0);
+  const [answers, setAnswers] = useState({});
   const [finished, setFinished] = useState(false);
   const [timeLeft, setTimeLeft] = useState(QUESTIONS_TIME);
   const [paused, setPaused] = useState(false);
 
-  // ⏱️ TIMER
+  
+  const getTopic = (i) => {
+    if (i < 30) return "JavaScript";
+    if (i < 55) return "React";
+    if (i < 80) return "Node / Express";
+    return "MongoDB";
+  };
+
+  
   useEffect(() => {
     if (finished || paused) return;
-
     if (timeLeft === 0) {
-      handleNext();
+      handleSkip();
       return;
     }
-
     const t = setTimeout(() => setTimeLeft((s) => s - 1), 1000);
     return () => clearTimeout(t);
   }, [timeLeft, paused, finished]);
 
-  // 👉 NEXT
+  
   const handleNext = () => {
-    if (selected) {
-      setAnswers((prev) => ({ ...prev, [current]: selected }));
-    }
+    setAnswers((p) => ({ ...p, [current]: selected }));
+    moveNext();
+  };
 
-    setSelected(answers[current + 1] || "");
+  
+  const handleSkip = () => {
+    setAnswers((p) => ({ ...p, [current]: null }));
+    moveNext();
+  };
+
+  
+  const handlePrev = () => {
+    if (current === 0) return;
+    setAnswers((p) => ({ ...p, [current]: selected }));
+    setCurrent((c) => c - 1);
+    setSelected(answers[current - 1] || "");
     setTimeLeft(QUESTIONS_TIME);
+  };
 
+  const moveNext = () => {
+    setSelected("");
+    setTimeLeft(QUESTIONS_TIME);
     if (current + 1 < questions.length) {
       setCurrent((c) => c + 1);
     } else {
-      calculateScore();
       setFinished(true);
     }
   };
 
-  // 👈 PREVIOUS
-  const handlePrev = () => {
-    if (current > 0) {
-      setAnswers((prev) => ({ ...prev, [current]: selected }));
-      setCurrent((c) => c - 1);
-      setSelected(answers[current - 1] || "");
-      setTimeLeft(QUESTIONS_TIME);
-    }
-  };
+  
+  const attemptedCount = Object.keys(answers).length;
 
-  // 🧮 SCORE CALCULATION
-  const calculateScore = () => {
-    let s = 0;
-    questions.forEach((q, i) => {
-      if (answers[i] === q.answer) s++;
-    });
-    setScore(s);
-  };
+  const score = Object.entries(answers).filter(
+    ([i, ans]) => ans === questions[i].answer
+  ).length;
+
+  const skipped = Object.values(answers).filter((a) => a === null).length;
+  const wrong = attemptedCount - score - skipped;
 
   const progress = Math.round(((current + 1) / questions.length) * 100);
 
@@ -179,7 +189,13 @@ export default function PracticeQuiz() {
           <>
             {/* HEADER */}
             <div className="flex justify-between mb-3">
-              <span>Question {current + 1} / {questions.length}</span>
+              <span>
+                Q {current + 1}/{questions.length} |
+                <span className="text-indigo-400 ml-1">
+                  {getTopic(current)}
+                </span>
+              </span>
+
               <span className={`font-bold ${timeLeft <= 5 ? "text-red-400" : ""}`}>
                 ⏱️ {timeLeft}s
               </span>
@@ -197,26 +213,40 @@ export default function PracticeQuiz() {
             <p className="mb-4 font-semibold">{questions[current].q}</p>
 
             {/* OPTIONS */}
-            {questions[current].options.map((opt) => (
-              <div
-                key={opt}
-                onClick={() => setSelected(opt)}
-                className={`p-2 border rounded mb-2 cursor-pointer ${
-                  selected === opt ? "bg-indigo-600" : ""
-                }`}
-              >
-                {opt}
-              </div>
-            ))}
+            {questions[current].options.map((opt) => {
+              let bg = "bg-white/10";
+
+              if (selected) {
+                if (opt === questions[current].answer) bg = "bg-green-600";
+                else if (opt === selected) bg = "bg-red-600";
+              }
+
+              return (
+                <div
+                  key={opt}
+                  onClick={() => !selected && setSelected(opt)}
+                  className={`p-3 border rounded mb-2 cursor-pointer ${bg}`}
+                >
+                  {opt}
+                </div>
+              );
+            })}
 
             {/* CONTROLS */}
-            <div className="flex gap-3 mt-4">
+            <div className="flex gap-3 mt-4 flex-wrap">
               <button
                 onClick={handlePrev}
                 disabled={current === 0}
                 className="bg-gray-600 px-4 py-2 rounded disabled:opacity-50"
               >
                 ⬅️ Previous
+              </button>
+
+              <button
+                onClick={handleSkip}
+                className="bg-gray-700 px-4 py-2 rounded"
+              >
+                ⏭️ Skip
               </button>
 
               <button
@@ -231,24 +261,34 @@ export default function PracticeQuiz() {
                 onClick={handleNext}
                 className="bg-green-600 px-4 py-2 rounded disabled:opacity-50"
               >
-                {current + 1 === questions.length ? "Finish" : "Next ➡️"}
+                Next ➡️
+              </button>
+
+              <button
+                onClick={() => setFinished(true)}
+                className="bg-red-600 px-4 py-2 rounded ml-auto"
+              >
+                Finish Test
               </button>
             </div>
           </>
         ) : (
           <>
             {/* RESULT */}
-            <h2 className="text-2xl font-bold text-green-400 mb-2">
-              🎉 Quiz Completed
+            <h2 className="text-2xl font-bold text-green-400 mb-3">
+              Test Finished
             </h2>
-            <p>Correct: {score}</p>
-            <p> Wrong: {questions.length - score}</p>
-            <p className="font-bold mt-2">
-              Score: {score} / {questions.length}
+
+            <p>Attempted: {attemptedCount}</p>
+            <p className="text-green-400">Correct: {score}</p>
+            <p className="text-red-400">Wrong: {wrong}</p>
+            <p className="text-yellow-400">Skipped: {skipped}</p>
+
+            <p className="font-bold mt-3">
+              Score: {score} / {attemptedCount}
             </p>
           </>
         )}
-
       </div>
     </div>
   );
